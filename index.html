@@ -14,6 +14,9 @@
   <meta property="og:description" content="أفضل مقاول تركيب شبوك وسياج أمني بالرياض والمدينة المنورة بمواصفات قياسية وضمان معتمد.">
   <meta property="og:url" content="https://fence-installation.pages.dev/">
   <meta property="og:image" content="https://fence-installation.pages.dev/images/fence-installation-1_result.webp">
+
+  <!-- Preload Critical Logo for Fast LCP -->
+  <link rel="preload" as="image" href="images/logo_result.webp" fetchpriority="high">
   
   <link rel="stylesheet" href="style.css">
   
@@ -50,10 +53,7 @@
       ],
       "opens": "07:00",
       "closes": "22:00"
-    },
-    "sameAs": [
-      "https://fence-installation.pages.dev/"
-    ]
+    }
   }
   </script>
 </head>
@@ -62,8 +62,8 @@
   <!-- Header -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="index.html" class="brand-wrapper">
-        <img src="images/logo_result.webp" alt="شعار مؤسسة تركيب شبوك وسياج أمني" class="brand-logo" width="44" height="44">
+      <a href="index.html" class="brand-wrapper" aria-label="الصفحة الرئيسية للمؤسسة">
+        <img src="images/logo_result.webp" alt="شعار مؤسسة تركيب شبوك وسياج أمني" class="brand-logo" width="40" height="40" fetchpriority="high">
         <div class="brand-title">
           مؤسسة الشبوك المتطورة
           <span>سياج وحواجز أمنية معتمدة</span>
@@ -83,6 +83,8 @@
               <a href="fencing-prices.html" class="dropdown-link">أسعار تركيب الشبوك</a>
             </div>
           </li>
+          <li class="nav-item"><a href="riyadh-fencing.html" class="nav-link">شبوك الرياض</a></li>
+          <li class="nav-item"><a href="medina-fencing.html" class="nav-link">شبوك المدينة</a></li>
           <li class="nav-item"><a href="our-works.html" class="nav-link">معرض الأعمال</a></li>
           <li class="nav-item"><a href="about-us.html" class="nav-link">من نحن</a></li>
           <li class="nav-item"><a href="faq.html" class="nav-link">الأسئلة الشائعة</a></li>
@@ -127,6 +129,8 @@
             <a href="fencing-prices.html" class="sidebar-sub-link">عروض وتكاليف الشبوك</a>
           </div>
         </li>
+        <li><a href="riyadh-fencing.html" class="sidebar-link">شبوك منطقة الرياض</a></li>
+        <li><a href="medina-fencing.html" class="sidebar-link">شبوك المدينة المنورة</a></li>
         <li><a href="our-works.html" class="sidebar-link">معرض الصور والأعمال</a></li>
         <li><a href="warranty.html" class="sidebar-link">الضمان والمواصفات</a></li>
         <li><a href="about-us.html" class="sidebar-link">عن المؤسسة</a></li>
@@ -164,20 +168,21 @@
         </div>
 
         <div class="hero-card-box">
-          <h3 class="text-accent" style="margin-bottom: 0.5rem; font-size: 1.3rem;">احصل على تسعيرة فورية</h3>
+          <h2 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 800;">احصل على تسعيرة فورية</h2>
           <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.25rem;">أدخل تفاصيل مشروعك وسيقوم المهندس المختص بالرد عليك فوراً:</p>
+          
           <form class="smart-lead-form">
             <div class="form-group">
-              <label class="form-label text-white">الاسم الكريم:</label>
-              <input type="text" name="name" class="form-control" placeholder="أدخل اسمك" required>
+              <label for="lead-name" class="form-label text-white">الاسم الكريم:</label>
+              <input type="text" id="lead-name" name="name" class="form-control" placeholder="أدخل اسمك" required>
             </div>
             <div class="form-group">
-              <label class="form-label text-white">رقم الجوال:</label>
-              <input type="tel" name="phone" class="form-control" placeholder="05xxxxxxxx" required>
+              <label for="lead-phone" class="form-label text-white">رقم الجوال:</label>
+              <input type="tel" id="lead-phone" name="phone" class="form-control" placeholder="05xxxxxxxx" required>
             </div>
             <div class="form-group">
-              <label class="form-label text-white">نوع الشبوك المطلوبة:</label>
-              <select name="service" class="form-control" required>
+              <label for="lead-service" class="form-label text-white">نوع الشبوك المطلوبة:</label>
+              <select id="lead-service" name="service" class="form-control" required>
                 <option value="تركيب شبوك مزارع">تركيب شبوك مزارع</option>
                 <option value="تسوير شبوك أراضي">تسوير شبوك أراضي</option>
                 <option value="تركيب شبوك ملاعب">تركيب شبوك ملاعب رياضية</option>
@@ -358,7 +363,7 @@
     <!-- Quick Call to Action -->
     <section class="section-padding" style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); color: #ffffff; text-align: center;">
       <div class="container">
-        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem;">هل تبحث عن أفضل سعر لتركيب الشبوك في موقعك؟</h2>
+        <h2 style="font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 800; margin-bottom: 1rem; color: #ffffff;">هل تبحث عن أفضل سعر لتركيب الشبوك في موقعك؟</h2>
         <p style="color: var(--text-light); max-width: 700px; margin-inline: auto; margin-bottom: 2rem; font-size: 1.1rem;">تواصل معنا الآن لتحصل على معاينة فورية وعرض سعر مخصص لمساحة أرضك أو مزرعتك مع الضمان المعتمد.</p>
         <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
           <a href="tel:0505898112" class="btn btn-accent">اتصال مباشر: 0505898112 📞</a>
@@ -374,7 +379,7 @@
       <div class="footer-grid">
         <!-- Col 1 -->
         <div class="footer-col">
-          <h4>مؤسسة الشبوك المتطورة</h4>
+          <h3>مؤسسة الشبوك المتطورة</h3>
           <p>المؤسسة الرائدة في المملكة العربية السعودية لأعمال توريد وتركيب الشبوك، تسوير المزارع، حماية الأراضي الفضاء، شبوك الملاعب، والسياج الأمني المجلفن.</p>
           <div class="footer-contact-list">
             <div class="footer-contact-item">📍 المقر الرئيسي: الرياض والمدينة المنورة</div>
@@ -385,7 +390,7 @@
 
         <!-- Col 2 -->
         <div class="footer-col">
-          <h4>خدمات الشبوك المتخصصة</h4>
+          <h3>خدمات الشبوك المتخصصة</h3>
           <ul class="footer-links">
             <li><a href="farm-fencing.html">تركيب شبوك مزارع</a></li>
             <li><a href="land-fencing.html">تسوير وحماية الأراضي</a></li>
@@ -398,21 +403,21 @@
 
         <!-- Col 3 -->
         <div class="footer-col">
-          <h4>روابط سريعة ومعلومات</h4>
+          <h3>روابط سريعة ومعلومات</h3>
           <ul class="footer-links">
+            <li><a href="riyadh-fencing.html">شبوك منطقة الرياض</a></li>
+            <li><a href="medina-fencing.html">شبوك المدينة المنورة</a></li>
             <li><a href="our-works.html">معرض أعمال ومشاريع الشبوك</a></li>
             <li><a href="warranty.html">المواصفات الفنية والضمان</a></li>
             <li><a href="about-us.html">نبذة عن المؤسسة</a></li>
             <li><a href="faq.html">الأسئلة الشائعة حول الشبوك</a></li>
-            <li><a href="privacy-policy.html">سياسة الخصوصية</a></li>
-            <li><a href="terms-conditions.html">الشروط والأحكام</a></li>
             <li><a href="contact-us.html">طلب معاينة وتواصل</a></li>
           </ul>
         </div>
 
         <!-- Col 4: Local SEO Tag Cloud -->
         <div class="footer-col">
-          <h4>مناطق التغطية والخدمة</h4>
+          <h3>مناطق التغطية والخدمة</h3>
           <p>نقدم خدماتنا في كافة أحياء الرياض وضواحيها والمدينة المنورة:</p>
           <div class="seo-tag-cloud">
             <span class="seo-tag">شبوك الرياض</span>
