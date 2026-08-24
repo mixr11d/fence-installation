@@ -1,15 +1,12 @@
 /**
  * مؤسسة تركيب شبوك مزارع وأراضي وملاعب وسياج وحواجز أمنية
- * Google Ads Tracking Engine & Mobile UX Core (Vanilla JS)
- * Version: 2.1.0
+ * Google Ads Tracking Engine & Mobile UX Core (Ultra-Fast 100% Web Vitals)
+ * Version: 3.0.0
  */
 
 (function () {
   'use strict';
 
-  // -------------------------------------------------------------
-  // 1. كائن الإعدادات والتحويلات الخاص بإعلانات Google والاتصالات
-  // -------------------------------------------------------------
   const APP_CONFIG = {
     CONVERSION_ID: 'AW-xxxxxxxxxxxxx',
     LABELS: {
@@ -22,11 +19,10 @@
     CLIENT_TEL: '0505898112'
   };
 
-  // -------------------------------------------------------------
-  // 2. الحقن التلقائي لوسم Google Ads Tag (gtag.js)
-  // -------------------------------------------------------------
-  function injectGoogleTag() {
-    if (document.querySelector(`script[src*="${APP_CONFIG.CONVERSION_ID}"]`)) return;
+  // تأجيل تحميل سكريبت قوقل حتى اكتمال رسم أول محتوى (LCP Optimization)
+  function initGoogleTag() {
+    if (window.gtagInitialized) return;
+    window.gtagInitialized = true;
 
     window.dataLayer = window.dataLayer || [];
     window.gtag = function () {
@@ -42,12 +38,16 @@
     document.head.appendChild(script);
   }
 
-  injectGoogleTag();
+  // تحميل تتبع قوقل في وقت خمول المعالج بعد رسم الصفحة
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(initGoogleTag, { timeout: 2500 });
+  } else {
+    window.addEventListener('load', () => setTimeout(initGoogleTag, 1000));
+  }
 
-  // -------------------------------------------------------------
-  // 3. دالة إرسال إحالات Google Ads مع حماية المتصفح (Beacon)
-  // -------------------------------------------------------------
+  // دالة إرسال الإحالات
   function reportConversion(label, callback) {
+    initGoogleTag();
     if (typeof window.gtag === 'function' && label && !label.includes('xxxx')) {
       window.gtag('event', 'conversion', {
         send_to: `${APP_CONFIG.CONVERSION_ID}/${label}`,
@@ -61,36 +61,29 @@
     }
   }
 
-  // -------------------------------------------------------------
-  // 4. الرصد الشامل للنقرات (Global Click Delegation)
-  // -------------------------------------------------------------
+  // الرصد الشامل للنقرات
   document.addEventListener('click', function (event) {
     const targetLink = event.target.closest('a');
     if (!targetLink) return;
 
     const href = (targetLink.getAttribute('href') || '').trim();
 
-    // 1. استثناء رقم ورابط المطور فوراً لمنع حرق الميزانية
     if (href.includes(APP_CONFIG.DEV_PHONE) || href.includes('0578539687')) {
       return;
     }
 
-    // 2. فحص نقرات الواتساب وإرسال الإحالة
     if (href.includes('wa.me') || href.includes('whatsapp.com')) {
       reportConversion(APP_CONFIG.LABELS.WHATSAPP);
       return;
     }
 
-    // 3. فحص نقرات الاتصال الهاتفي وإرسال الإحالة
     if (href.startsWith('tel:')) {
       reportConversion(APP_CONFIG.LABELS.CALL);
       return;
     }
   }, true);
 
-  // -------------------------------------------------------------
-  // 5. معالجة النماذج الذكية (.smart-lead-form)
-  // -------------------------------------------------------------
+  // النماذج الذكية
   function initSmartForms() {
     const forms = document.querySelectorAll('.smart-lead-form');
     forms.forEach(form => {
@@ -105,16 +98,15 @@
 
         const name = nameInput ? nameInput.value.trim() : 'غير محدد';
         const phone = phoneInput ? phoneInput.value.trim() : 'غير محدد';
-        const service = serviceInput ? serviceInput.value.trim() : 'طلب تسعير شبوك وسياج';
+        const service = serviceInput ? serviceInput.value.trim() : 'طلب تسعير شبوك';
         const notes = notesInput ? notesInput.value.trim() : 'بدون ملاحظات إضافية';
 
         if (submitBtn) {
           submitBtn.disabled = true;
           submitBtn.dataset.originalText = submitBtn.innerHTML;
-          submitBtn.innerHTML = 'جاري المعالجة وإعادة التوجيه... ⏳';
+          submitBtn.innerHTML = 'جاري التحويل للواتساب... ⏳';
         }
 
-        // إرسال إحالة النموذج
         reportConversion(APP_CONFIG.LABELS.FORM, function () {
           const messageText = `مرحباً، أود الاستفسار وطلب تسعير لتركيب شبوك وسياج:\n\n👤 *الاسم:* ${name}\n📱 *الجوال:* ${phone}\n🏗️ *الخدمة المطلوبة:* ${service}\n📝 *الملاحظات/المساحة:* ${notes}`;
           const waUrl = `https://wa.me/${APP_CONFIG.CLIENT_PHONE}?text=${encodeURIComponent(messageText)}`;
@@ -126,15 +118,13 @@
               submitBtn.innerHTML = submitBtn.dataset.originalText;
             }
             form.reset();
-          }, 300);
+          }, 250);
         });
       });
     });
   }
 
-  // -------------------------------------------------------------
-  // 6. التحكم بالقائمة الجانبية للجوال (Native Mobile Sidebar)
-  // -------------------------------------------------------------
+  // القائمة الجانبية للجوال
   function initMobileMenu() {
     const toggleBtn = document.querySelector('.nav-toggle-btn');
     const closeBtn = document.querySelector('.sidebar-close-btn');
@@ -161,7 +151,6 @@
     if (closeBtn) closeBtn.addEventListener('click', closeSidebar);
     if (overlay) overlay.addEventListener('click', closeSidebar);
 
-    // أكورديون الخدمات داخل القائمة الجانبية للجوال
     const sidebarAccordion = document.querySelector('.accordion-toggle');
     const sidebarSubMenu = document.querySelector('.sidebar-sub-menu');
 
@@ -174,9 +163,7 @@
     }
   }
 
-  // -------------------------------------------------------------
-  // 7. أكورديون الأسئلة الشائعة (FAQ Accordion)
-  // -------------------------------------------------------------
+  // أكورديون الأسئلة الشائعة
   function initFaqAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
     faqItems.forEach(item => {
@@ -193,11 +180,8 @@
     });
   }
 
-  // -------------------------------------------------------------
-  // 8. الحقن التلقائي: (الاتصال والواتساب يميناً - الصعود يساراً)
-  // -------------------------------------------------------------
+  // حقن الأزرار العائمة
   function injectFloatingActions() {
-    // 1. حاوية الاتصال والواتساب على اليمين
     if (!document.querySelector('.floating-contact-right')) {
       const rightContainer = document.createElement('div');
       rightContainer.className = 'floating-contact-right';
@@ -208,7 +192,6 @@
       document.body.appendChild(rightContainer);
     }
 
-    // 2. حاوية زر الصعود للأعلى على اليسار
     if (!document.querySelector('.floating-scroll-left')) {
       const leftContainer = document.createElement('div');
       leftContainer.className = 'floating-scroll-left';
@@ -224,7 +207,7 @@
         } else {
           scrollTopBtn.classList.remove('visible');
         }
-      });
+      }, { passive: true });
 
       scrollTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -232,9 +215,6 @@
     }
   }
 
-  // -------------------------------------------------------------
-  // 9. تشغيل العناصر عند اكتمال تحميل الـ DOM
-  // -------------------------------------------------------------
   document.addEventListener('DOMContentLoaded', () => {
     initMobileMenu();
     initSmartForms();
