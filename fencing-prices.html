@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>أسعار تركيب شبوك المزارع والأراضي بالمتر | الرياض والمدينة المنورة</title>
-  <meta name="description" content="تعرف على أسعار وتكاليف تركيب شبوك المزارع، تسوير الأراضي، شبوك الملاعب، والسياج الأمني بالمتر الطولي بالرياض والمدينة المنورة. عروض وخصومات للمساحات الكبيرة.">
+  <meta name="description" content="تعرف على أسعار وتكاليف تركيب شبوك المزارع، تسوير الأراضي، شبوك الملاعب، والسياج الأمني بالمتر الطولي بالرياض والمدينة المنورة مع حاسبة تكلفة تقديرية فورية.">
   <link rel="canonical" href="https://fence-installation.pages.dev/fencing-prices.html">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="أسعار تركيب شبوك المزارع والأراضي بالمتر">
-  <meta property="og:description" content="عروض أسعار شفافة ومنافسة لتركيب كافة أنواع الشبوك والسياج الأمني بضمان معتمد.">
+  <meta property="og:title" content="أسعار تركيب شبوك المزارع والأراضي بالمتر | حاسبة تكلفة فورية">
+  <meta property="og:description" content="عروض أسعار شفافة ومنافسة لتركيب كافة أنواع الشبوك والسياج الأمني مع إمكانية حساب التكلفة فورياً.">
   <meta property="og:url" content="https://fence-installation.pages.dev/fencing-prices.html">
   <meta property="og:image" content="https://fence-installation.pages.dev/images/fencing-prices-1_result.webp">
   
@@ -41,6 +41,8 @@
               <a href="fencing-prices.html" class="dropdown-link">أسعار تركيب الشبوك</a>
             </div>
           </li>
+          <li class="nav-item"><a href="riyadh-fencing.html" class="nav-link">شبوك الرياض</a></li>
+          <li class="nav-item"><a href="medina-fencing.html" class="nav-link">شبوك المدينة</a></li>
           <li class="nav-item"><a href="our-works.html" class="nav-link">معرض الأعمال</a></li>
           <li class="nav-item"><a href="about-us.html" class="nav-link">من نحن</a></li>
           <li class="nav-item"><a href="faq.html" class="nav-link">الأسئلة الشائعة</a></li>
@@ -85,6 +87,8 @@
             <a href="fencing-prices.html" class="sidebar-sub-link active">عروض وتكاليف الشبوك</a>
           </div>
         </li>
+        <li><a href="riyadh-fencing.html" class="sidebar-link">شبوك منطقة الرياض</a></li>
+        <li><a href="medina-fencing.html" class="sidebar-link">شبوك المدينة المنورة</a></li>
         <li><a href="our-works.html" class="sidebar-link">معرض الصور والأعمال</a></li>
         <li><a href="warranty.html" class="sidebar-link">الضمان والمواصفات</a></li>
         <li><a href="about-us.html" class="sidebar-link">عن المؤسسة</a></li>
@@ -104,13 +108,63 @@
       <div class="container">
         <span class="badge badge-white">شفافية وعروض حصرية</span>
         <h1>أسعار وتكاليف تركيب الشبوك والسياج بالمتر</h1>
-        <p>دليل باقات وتكاليف تسوير المزارع والأراضي والملاعب بالرياض والمدينة المنورة</p>
+        <p>دليل باقات وتكاليف تسوير المزارع والأراضي والملاعب بالرياض والمدينة المنورة مع حاسبة تقديرية فورية</p>
         <div class="breadcrumb-nav">
           <a href="index.html">الرئيسية</a>
           <span>/</span>
           <a href="fence-installation.html">خدمات الشبوك</a>
           <span>/</span>
           <span>أسعار الشبوك</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Fence Cost Calculator -->
+    <section class="section-padding" style="background-color: #ffffff; border-bottom: 1px solid var(--border);">
+      <div class="container" style="max-width: 850px;">
+        <div class="form-card" style="border: 2px solid var(--accent); box-shadow: var(--shadow-lg);">
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <span class="badge">أداة تسعير فورية</span>
+            <h2 style="color: var(--primary); font-size: 1.6rem; font-weight: 800; margin-bottom: 0.4rem;">حاسبة تكلفة الشبوك التقديرية الذكية</h2>
+            <p style="color: var(--text-muted); font-size: 0.95rem;">أدخل طول المحيط ونوع الشبك والارتفاع لمعرفة التكلفة الإجمالية فوراً:</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 700;">المساحة / الطول بالمتر الطولي:</label>
+              <input type="number" id="calcMeters" class="form-control" value="200" min="20" step="10" style="font-size: 1.1rem; font-weight: 700; text-align: center;">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 700;">نوع الشبوك المطلوبة:</label>
+              <select id="calcType" class="form-control" style="font-weight: 600;">
+                <option value="35" data-name="تسوير أراضي فضاء (اقتصادي)">تسوير أراضي فضاء (35 ريال/متر)</option>
+                <option value="45" data-name="شبوك مزارع مجلفنة أصلية" selected>شبوك مزارع مجلفنة (45 ريال/متر)</option>
+                <option value="55" data-name="شبوك بي في سي خضراء وملاعب">شبوك PVC خضراء وملاعب (55 ريال/متر)</option>
+                <option value="65" data-name="سياج أمني مشدد وأسلاك شائكة">سياج أمني وأسلاك شائكة (65 ريال/متر)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 700;">الارتفاع المطلوب:</label>
+              <select id="calcHeight" class="form-control" style="font-weight: 600;">
+                <option value="1.0" data-h="2 متر">ارتفاع 2 متر (قياسي)</option>
+                <option value="1.2" data-h="2.5 متر">ارتفاع 2.5 متر (+20%)</option>
+                <option value="1.4" data-h="3 متر">ارتفاع 3 متر (+40%)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- نتيجة الحساب -->
+          <div style="background-color: var(--surface-alt); padding: 1.5rem; border-radius: var(--radius-md); text-align: center; margin-bottom: 1.5rem; border: 2px dashed var(--accent);">
+            <div style="font-size: 1rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 600;">التكلفة التقديرية الإجمالية للمشروع:</div>
+            <div id="calcTotalDisplay" style="font-size: 2.4rem; font-weight: 900; color: var(--accent); margin-block: 0.35rem;">9,000 ريال</div>
+            <div style="font-size: 0.85rem; color: var(--text-light);">* السعر يشمل التوريد، حفر القواعد الخرسانية، تثبيت التيوبات والمواسير، وفرد الشبك والشد التام.</div>
+          </div>
+
+          <button type="button" id="calcOrderBtn" class="btn btn-whatsapp btn-block" style="font-size: 1.1rem; padding-block: 1rem;">
+            طلب تثبيت هذا السعر ومعاينة الموقع عبر الواتساب 💬
+          </button>
         </div>
       </div>
     </section>
@@ -350,6 +404,45 @@
       </div>
     </div>
   </footer>
+
+  <!-- Calculator Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const metersInput = document.getElementById('calcMeters');
+      const typeSelect = document.getElementById('calcType');
+      const heightSelect = document.getElementById('calcHeight');
+      const totalDisplay = document.getElementById('calcTotalDisplay');
+      const orderBtn = document.getElementById('calcOrderBtn');
+
+      function updateCalc() {
+        if (!metersInput || !typeSelect || !heightSelect || !totalDisplay) return;
+        const meters = parseFloat(metersInput.value) || 0;
+        const typePrice = parseFloat(typeSelect.value) || 0;
+        const heightMultiplier = parseFloat(heightSelect.value) || 1.0;
+        
+        const total = Math.round(meters * typePrice * heightMultiplier);
+        totalDisplay.innerText = total.toLocaleString('ar-SA') + ' ريال';
+      }
+
+      if (metersInput && typeSelect && heightSelect) {
+        metersInput.addEventListener('input', updateCalc);
+        typeSelect.addEventListener('change', updateCalc);
+        heightSelect.addEventListener('change', updateCalc);
+      }
+
+      if (orderBtn) {
+        orderBtn.addEventListener('click', function() {
+          const meters = metersInput ? metersInput.value : '200';
+          const typeText = typeSelect ? typeSelect.options[typeSelect.selectedIndex].getAttribute('data-name') : 'شبوك مزارع';
+          const heightText = heightSelect ? heightSelect.options[heightSelect.selectedIndex].getAttribute('data-h') : '2 متر';
+          const totalText = totalDisplay ? totalDisplay.innerText : '';
+
+          const msg = `مرحباً، قمت بحساب تكلفة الشبوك عبر الحاسبة الذكية بالموقع وأرغب في تثبيت هذا السعر ومعاينة الموقع:\n\n📏 *المساحة:* ${meters} متر طولي\n🏗️ *النوع:* ${typeText}\n📐 *الارتفاع:* ${heightText}\n💰 *التكلفة التقديرية:* ${totalText}`;
+          window.open(`https://wa.me/966505898112?text=${encodeURIComponent(msg)}`, '_blank');
+        });
+      }
+    });
+  </script>
 
   <script src="script.js" defer></script>
 </body>
