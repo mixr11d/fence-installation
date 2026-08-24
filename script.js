@@ -1,7 +1,7 @@
 /**
  * مؤسسة تركيب شبوك مزارع وأراضي وملاعب وسياج وحواجز أمنية
  * Google Ads Tracking Engine & Mobile UX Core (Vanilla JS)
- * Version: 2.0.0
+ * Version: 2.1.0
  */
 
 (function () {
@@ -194,33 +194,42 @@
   }
 
   // -------------------------------------------------------------
-  // 8. الحقن التلقائي لأزرار التواصل العائمة وزر الصعود للأعلى
+  // 8. الحقن التلقائي: (الاتصال والواتساب يميناً - الصعود يساراً)
   // -------------------------------------------------------------
   function injectFloatingActions() {
-    if (document.querySelector('.floating-cta-container')) return;
+    // 1. حاوية الاتصال والواتساب على اليمين
+    if (!document.querySelector('.floating-contact-right')) {
+      const rightContainer = document.createElement('div');
+      rightContainer.className = 'floating-contact-right';
+      rightContainer.innerHTML = `
+        <a href="https://wa.me/${APP_CONFIG.CLIENT_PHONE}?text=${encodeURIComponent('السلام عليكم، أود الاستفسار عن تركيب شبوك وسياج أمني')}" class="floating-btn whatsapp" target="_blank" rel="noopener noreferrer" aria-label="محادثة واتساب مباشرة" title="محادثة واتساب">💬</a>
+        <a href="tel:${APP_CONFIG.CLIENT_TEL}" class="floating-btn call" aria-label="اتصال هاتفي مباشر" title="اتصل بنا الآن">📞</a>
+      `;
+      document.body.appendChild(rightContainer);
+    }
 
-    const container = document.createElement('div');
-    container.className = 'floating-cta-container';
-    container.innerHTML = `
-      <button type="button" class="floating-btn scroll-top" aria-label="العودة لأعلى الصفحة" title="أعلى الصفحة">↑</button>
-      <a href="https://wa.me/${APP_CONFIG.CLIENT_PHONE}?text=${encodeURIComponent('السلام عليكم، أود الاستفسار عن تركيب شبوك وسياج أمني')}" class="floating-btn whatsapp" target="_blank" rel="noopener noreferrer" aria-label="محادثة واتساب مباشرة" title="محادثة واتساب">💬</a>
-      <a href="tel:${APP_CONFIG.CLIENT_TEL}" class="floating-btn call" aria-label="اتصال هاتفي مباشر" title="اتصل بنا الآن">📞</a>
-    `;
+    // 2. حاوية زر الصعود للأعلى على اليسار
+    if (!document.querySelector('.floating-scroll-left')) {
+      const leftContainer = document.createElement('div');
+      leftContainer.className = 'floating-scroll-left';
+      leftContainer.innerHTML = `
+        <button type="button" class="floating-btn scroll-top" aria-label="العودة لأعلى الصفحة" title="أعلى الصفحة">↑</button>
+      `;
+      document.body.appendChild(leftContainer);
 
-    document.body.appendChild(container);
+      const scrollTopBtn = leftContainer.querySelector('.scroll-top');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 350) {
+          scrollTopBtn.classList.add('visible');
+        } else {
+          scrollTopBtn.classList.remove('visible');
+        }
+      });
 
-    const scrollTopBtn = container.querySelector('.scroll-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 350) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    });
-
-    scrollTopBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
   }
 
   // -------------------------------------------------------------
