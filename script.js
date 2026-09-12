@@ -1,7 +1,7 @@
 /**
  * مؤسسة تركيب شبوك مزارع وأراضي وملاعب وسياج وحواجز أمنية
  * Google Ads Tracking Engine & Mobile UX Core (Ultra-Fast 100% Web Vitals)
- * Version: 3.0.0
+ * Version: 3.1.0 (Fixed AdBlocker Hanging & Fallback Callback)
  */
 
 (function () {
@@ -19,7 +19,7 @@
     CLIENT_TEL: '0505898112'
   };
 
-  // تأجيل تحميل سكريبت قوقل حتى اكتمال رسم أول محتوى (LCP Optimization)
+  // تأجيل تحميل سكريبت قوقل حتى وقت الخمول (LCP Optimization)
   function initGoogleTag() {
     if (window.gtagInitialized) return;
     window.gtagInitialized = true;
@@ -38,46 +38,75 @@
     document.head.appendChild(script);
   }
 
-  // تحميل تتبع قوقل في وقت خمول المعالج بعد رسم الصفحة
+  // تحميل تتبع قوقل في وقت خمول المعالج
   if ('requestIdleCallback' in window) {
     window.requestIdleCallback(initGoogleTag, { timeout: 2500 });
   } else {
     window.addEventListener('load', () => setTimeout(initGoogleTag, 1000));
   }
 
-  // دالة إرسال الإحالات
+  // دالة إرسال الإحالات المحسّنة والمحمية ضد حظر السكربتات
   function reportConversion(label, callback) {
     initGoogleTag();
+
+    let callbackExecuted = false;
+    const executeCallbackOnce = function () {
+      if (!callbackExecuted) {
+        callbackExecuted = true;
+        if (typeof callback === 'function') callback();
+      }
+    };
+
+    // صمام أمان: إذا لم يستجب قوقل خلال 600ms يتم التحويل فوراً دون تعليق العميل
+    const safetyTimeout = setTimeout(executeCallbackOnce, 600);
+
     if (typeof window.gtag === 'function' && label && !label.includes('xxxx')) {
-      window.gtag('event', 'conversion', {
-        send_to: `${APP_CONFIG.CONVERSION_ID}/${label}`,
-        transport_type: 'beacon',
-        event_callback: function () {
-          if (typeof callback === 'function') callback();
-        }
-      });
+      try {
+        window.gtag('event', 'conversion', {
+          send_to: `${APP_CONFIG.CONVERSION_ID}/${label}`,
+          transport_type: 'beacon',
+          event_callback: function () {
+            clearTimeout(safetyTimeout);
+            executeCallbackOnce();
+          }
+        });
+      } catch (err) {
+        clearTimeout(safetyTimeout);
+        executeCallbackOnce();
+      }
     } else {
-      if (typeof callback === 'function') callback();
+      clearTimeout(safetyTimeout);
+      executeCallbackOnce();
     }
   }
 
   // الرصد الشامل للنقرات
+  let lastClickTime = 0;
   document.addEventListener('click', function (event) {
     const targetLink = event.target.closest('a');
     if (!targetLink) return;
 
     const href = (targetLink.getAttribute('href') || '').trim();
 
+    // تجاهل نقرات المطور
     if (href.includes(APP_CONFIG.DEV_PHONE) || href.includes('0578539687')) {
       return;
     }
 
+    // منع النقرات المزدوجة السريعة جداً (خلال 800ms)
+    const now = Date.now();
+    if (now - lastClickTime < 800) return;
+
+    // رصد الواتساب
     if (href.includes('wa.me') || href.includes('whatsapp.com')) {
+      lastClickTime = now;
       reportConversion(APP_CONFIG.LABELS.WHATSAPP);
       return;
     }
 
+    // رصد الاتصال الهاتفي
     if (href.startsWith('tel:')) {
+      lastClickTime = now;
       reportConversion(APP_CONFIG.LABELS.CALL);
       return;
     }
@@ -111,14 +140,16 @@
           const messageText = `مرحباً، أود الاستفسار وطلب تسعير لتركيب شبوك وسياج:\n\n👤 *الاسم:* ${name}\n📱 *الجوال:* ${phone}\n🏗️ *الخدمة المطلوبة:* ${service}\n📝 *الملاحظات/المساحة:* ${notes}`;
           const waUrl = `https://wa.me/${APP_CONFIG.CLIENT_PHONE}?text=${encodeURIComponent(messageText)}`;
           
+          window.location.href = waUrl;
+
+          // إعادة تهيئة الزر في حال تراجع العميل
           setTimeout(() => {
-            window.location.href = waUrl;
             if (submitBtn) {
               submitBtn.disabled = false;
               submitBtn.innerHTML = submitBtn.dataset.originalText;
             }
             form.reset();
-          }, 250);
+          }, 1500);
         });
       });
     });
