@@ -8,11 +8,11 @@
   'use strict';
 
   const APP_CONFIG = {
-    CONVERSION_ID: 'AW-xxxxxxxxxxxxx',
+    CONVERSION_ID: 'AW-18418382466',
     LABELS: {
-      CALL: 'xxxxxxxxxxxxxxxxx',
-      WHATSAPP: 'xxxxxxxxxxxxxx',
-      FORM: 'xxxxxxxxxxxxxxxxxxx'
+      CALL: 'fP4FCJ_t-PQcEILtyM5E',
+      WHATSAPP: '8xTbCKLt-PQcEILtyM5E',
+      FORM: 'W2qVCNHng_UcEILtyM5E'
     },
     DEV_PHONE: '966578539687',
     CLIENT_PHONE: '966505898112',
